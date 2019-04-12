@@ -136,6 +136,7 @@ Note: Putting a space before a command means it does not get entered into bash h
 * You can check your program output by doing this (which is how we will run it)
 
     `$ python3 funandgames.py >myout.txt  # Put space before command`
+
     `$ bash funandgames.sh >myout.txt  # Put space before command`
 
     `$ diff myout.txt example-output.txt`
