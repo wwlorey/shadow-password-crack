@@ -117,6 +117,7 @@ We will run your script as follows (in the home directory of a random new tempwo
 At the bash command line (not sh or zsh, bash):
 
 Run as unprivileged tempworker (important; actually test this way, not as root!)
+
 `$ whoami`
 `tempworker`
 
