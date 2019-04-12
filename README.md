@@ -122,7 +122,7 @@ Run as unprivileged tempworker (important; actually test this way, not as root!)
 
 -- Refresh snapshot
 
-`./break.sh`
+`./code_to_break_vm_above.sh`
 
 `$ whoami`
 
