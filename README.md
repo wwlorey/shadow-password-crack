@@ -7,13 +7,13 @@ if the temp will help you get the bosses password, you will write a program that
 The temp worker does not know how to work "the PuTTY", and he cannot type very fast either, so you can't expect him to type out your commands at the bash terminal.
 You can teach him enough to execute a single script via the terminal however.
 You job is to write this script, which you can give to your "friend" the temp worker, that he can execute for you, that does the following: 
-    * processes the password files, 
-    * cracks the password for the account "yourboss", "sysadmin", and "yourbuddy"
-      outputs the passwords (and only the passwords) to the screen,
-    * then fixes the permissions of the relevant password files to match the **Debian** defaults,
-    * clears the bash history,
-    * deletes any log or "dot" / config files created in the process of cracking the password,
-    * and finally, add the temp worker to the sudo'ers group (for future mischief).
+* processes the password files, 
+* cracks the password for the account "yourboss", "sysadmin", and "yourbuddy"
+  outputs the passwords (and only the passwords) to the screen,
+* then fixes the permissions of the relevant password files to match the **Debian** defaults,
+* clears the bash history,
+* deletes any log or "dot" / config files created in the process of cracking the password,
+* and finally, add the temp worker to the sudo'ers group (for future mischief).
 The user tempworker gave you his password so you can include it in the script: "correctbatteryhorsestaple99" (why he has a reasonably good password is a mystery to you...).
 You can't just use the password at any physical terminal though, since someone might notice you at the temp's computer, and you don't want evidence that you logged onto his account with your computer (that's just part of the story, not something you have to do...).
 You may also discover that the system administrator's (sysadmin) password is also ironically weak.
