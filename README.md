@@ -118,10 +118,16 @@ At the bash command line (not sh or zsh, bash):
 
 Run as unprivileged tempworker (important; actually test this way, not as root!)
 
+-- Refresh snapshot
+
+`./break.sh`
+
 `$ whoami`
+
 `tempworker`
 
 `$ python3 funandgames.py`
+
 `$ bash funandgames.sh`
 
 Note: Putting a space before a command means it does not get entered into bash history, IF the environmental variable, $HISTCONTROL=ignoreboth, as it is in Debian.
