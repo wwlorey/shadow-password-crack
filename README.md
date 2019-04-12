@@ -14,6 +14,7 @@ You job is to write this script, which you can give to your "friend" the temp wo
 * clears the bash history,
 * deletes any log or "dot" / config files created in the process of cracking the password,
 * and finally, add the temp worker to the sudo'ers group (for future mischief).
+
 The user tempworker gave you his password so you can include it in the script: "correctbatteryhorsestaple99" (why he has a reasonably good password is a mystery to you...).
 You can't just use the password at any physical terminal though, since someone might notice you at the temp's computer, and you don't want evidence that you logged onto his account with your computer (that's just part of the story, not something you have to do...).
 You may also discover that the system administrator's (sysadmin) password is also ironically weak.
