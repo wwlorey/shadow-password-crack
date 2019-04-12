@@ -1,3 +1,5 @@
+Note: viewing this document in the Gitlab interface is nice.
+
 # Story
 You suspect your boss is embezzling money, and you would really like to obtain your boss's password to gather evidence.
 What you do with it is up to you...
