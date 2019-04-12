@@ -107,6 +107,7 @@ sudo chmod a+rwx /etc/shadow
 * Do NOT assume you will have internet access during runtime.
 * Your script can call other scripts (even other bash or scripts in your repo perhaps).
 * Make sure to include all your files in the repo.
+* Do NOT just take the hashes from the script above and crack those -- you need to pull them from the shadow file.
 
 # What to submit
 * `funandgames.py` OR `funandgames.sh` (but not both)
