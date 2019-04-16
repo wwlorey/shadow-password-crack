@@ -16,9 +16,18 @@
  #./crack_password.py "$yourboss_hash" > temp.txt
  yourboss_cracked="money"
  #$(<temp.txt)
- echo $yourboss_cracked
+ #echo $yourboss_cracked
 
- su -c "whoami" - yourboss
+#python -c 'import pty; pty.spawn("/bin/bash")'
+echo "$yourboss_cracked" | su -c "whoami" - yourboss
+
+# python3 <(cat << EOF
+#import sys
+#import pty
+#pty.spawn("/bin/bash whoami")
+#print("here")
+#EOF
+#) bash -c 'cat > out.txt'
 
 # whoami
 # echo "$temp_password" | sudo -s <<EOF
