@@ -25,16 +25,17 @@
  yourbuddy_hash=$(<temp_hash.txt)
 
 # Update the john configuration
- echo "$yourboss_cracked" | sudo -Su yourboss bash -c 'echo "
+ echo "$yourboss_cracked" | sudo -u yourboss bash -c 'echo "
 [Incremental:BUDDY_CRACK]
-File = \$JOHN/ascii.chr
+File = alpha.chr
 MinLen = 4
 MaxLen = 4
-CharCount = 95
-" | sudo tee -a /etc/john/john.conf'
+CharCount = 26
+" | sudo tee -a /etc/john/john.conf' > temp.txt
 
 # Crack the password
  echo "$yourboss_cracked" | sudo -u yourboss john --incremental:buddy_crack temp_hash.txt > temp.txt
+ echo "$yourboss_cracked" | sudo -u yourboss john --show temp_hash.txt > temp.txt
  yourbuddy_cracked=$(<temp.txt)
  echo $yourbuddy_cracked
 
