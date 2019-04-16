@@ -10,7 +10,7 @@ The temp worker does not know how to work "the PuTTY", and he cannot type very f
 You can teach him enough to execute a single script via the terminal however.
 You job is to write this script, which you can give to your "friend" the temp worker, that he can execute for you, that does the following: 
 * processes the password files, 
-* cracks the password for the account "yourboss", "sysadmin", and "yourbuddy"
+* cracks the password for the account "yourboss" and "sysadmin"
   outputs the passwords (and only the passwords) to the screen,
 * then fixes the permissions of the relevant password files to match the **Debian** defaults,
 * clears the bash history,
@@ -56,11 +56,9 @@ Wordlists already in Debian or Kali (for your dictionary inputs):
     * a bash script that occasionally calls a python script for the crypt lib operation (easier), or 
     * a python script that makes repeated bash commands, that may also need to call a bash script in a complicated way (harder).
 1. Get the password of yourboss using a from-scratch script and nothing other than basic crypto tools (NOT jonh, hashcat, etc.) (65 pts)
-2. Get yourbuddy's password by using John or Hashcat (NOT the from-scratch method).
-   Hint 1: these are in the repos, don't download them from some random website...
-   Hint 2: this will require brute force, but the password is short (15 pts)
-3. Get password of sysadmin (using any method) (5 pts)
-4. Give tempworker sudo ability (5 pts) - this is potentially much harder in python with nested bash.
+2. Get sysadmin's password by using John or Hashcat (NOT the from-scratch method).
+   Hint 1: these are in the repos, don't download them from some random website... (20 pts)
+4. Give tempworker sudo ability (5 pts) - this is potentially much harder in python with nested bash. (maybe a little trick; read the links)
 5. Then fix permissions on the shadow file (debian secure defaults) (5 pts) - this is potentially much harder in python with nested bash.
 6. Clear your tracks, if you left any, like logfiles, history, etc. (5 pts)
 
@@ -86,9 +84,6 @@ sudo usermod -a -G sudo yourboss
 
 # Creates tempworker's account and password
 sudo useradd tempworker -m -p '$6$g1VamdqE$RiEKGpb7gemh1Zt2JyVPq4Gzp/a2wTE5CPxNu97YaFfjS4wqbL2Nj1ousP2NWrUtjoVWw2nm8KdIcHzgzkw7R.'
-
-# Your friend
-sudo useradd yourbuddy -m -p '$6$tvsAYmsV$ieiv635zCbFpDMyYgjXtmwbBvgUlnrF246mnlpLcyPqZtP2fX0Dj6sbiVUrmEWJo.zOpokV8CV38RoUwo4Osx0'
 
 # break permissions on shadow file
 sudo chmod a+rwx /etc/shadow
