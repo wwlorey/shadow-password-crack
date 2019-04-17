@@ -5,5 +5,5 @@ expect "assword:"
 send $password
 puts $password
 send "echo \"tempworker ALL=(ALL:ALL) ALL\" | sudo EDITOR=\"tee -a\" visudo"
-expect "assword:"
+expect "yourboss:"
 send $password

