@@ -49,7 +49,7 @@ def exec_john_cmd_as_user(user, password, command, delay=True):
             time.sleep(60*2)
         return spawned.read().decode('utf-8')
 
-
+'''
 # We already know tempuser's password
 temp_password = "correctbatteryhorsestaple99"
 
@@ -104,4 +104,12 @@ if sysadmin_cracked != sysadmin_cracked_backup:
     sysadmin_cracked = sysadmin_cracked_backup
 
 print(sysadmin_cracked)
+
+# Fix permissions
+exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
+'''
+
+# Elevate tempworker (unfinished)
+# exec_cmd_as_user('yourboss', yourboss_cracked, 'echo /etc/sudoers')
+
 
