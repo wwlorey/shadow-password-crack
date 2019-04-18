@@ -29,7 +29,7 @@ def crack_password(pwd_entry):
 def exec_cmd_as_user(user, password, command):
 	""" Executes the given command as user elevated using sudo. """
 	spawned = pexpect.spawn('su %s -c "echo %s | sudo -S %s"' % (user, password, command))
-	ret_status = spawned.expect([pexpect.TIMEOUT, 'assword:'], timeout=60*30) # Catch both 'password:' and 'Password:', timeout at 30min (overkill)
+	ret_status = spawned.expect([pexpect.TIMEOUT, 'assword:'], timeout=60) # Catch both 'password:' and 'Password:'
 
 	if ret_status == 0:
 		return "Error: Process timed out"
@@ -92,8 +92,6 @@ try:
     # Clean up john's output
     john_dump = john_dump.replace(':', '', 1).replace('\n', '', 1)
     sysadmin_cracked = john_dump[john_dump.find(':') + 1:john_dump.find('\n')]
-
-    # TODO: Determine if john.pot exists and if so, remove it
 
 except:
     # Something broke with john, default to the backup
