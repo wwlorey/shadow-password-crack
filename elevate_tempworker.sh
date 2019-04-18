@@ -5,8 +5,6 @@ spawn su yourboss
 expect "Password:"
 send "$password\r"
 expect "$ "
-send "whoami\r"
-expect "$ "
 send "sudo usermod -aG sudo tempworker\r"
 expect "yourboss: "
 send "$password\r"
