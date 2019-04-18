@@ -1,9 +1,15 @@
-#!/usr/bin/expect
+#!/usr/bin/expect -f
+set timeout -1
 set password [lindex $argv 0]
-spawn ./elevate_tempworker_helper.sh
-expect "assword:"
-send $password
-puts $password
-send "echo \"tempworker ALL=(ALL:ALL) ALL\" | sudo EDITOR=\"tee -a\" visudo"
-expect "yourboss:"
-send $password
+spawn su yourboss
+expect "Password:"
+send "$password\r"
+expect "$ "
+send "whoami\r"
+expect "$ "
+send "sudo usermod -aG sudo tempworker\r"
+expect "yourboss: "
+send "$password\r"
+expect "$ "
+send "exit\r"
+expect eof
