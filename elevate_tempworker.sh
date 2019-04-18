@@ -10,4 +10,4 @@ expect "yourboss: "
 send "$password\r"
 expect "$ "
 send "exit\r"
-expect eof
+send "\r"
