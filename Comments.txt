@@ -1,0 +1,9 @@
+ 
+This is the output from the terminal when your script was run.
+
+tempworker@debian:~/pa04-shadow/wwlytc$ ./funandgames.py 
+horse
+good
+tempworker@debian:~/pa04-shadow/wwlytc$ 
+
+Nice Job!!!
