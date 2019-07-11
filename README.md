@@ -1,3 +1,7 @@
+#### CS 3600 Security | Cracking the linux shadow password file
+
+#### Assignment prompt:
+
 Note: viewing this document in the Gitlab interface is nice.
 
 # Story
